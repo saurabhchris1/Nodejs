@@ -1,8 +1,63 @@
-// fs = require('fs')
-//
-// fs.writeFileSync('notes.txt', 'This file was created by me which is saurabh')
-// fs.appendFileSync('notes.txt', ' appended text')
+const notes = require('./notes')
+const chalk = require('chalk')
+const fs = require('fs')
+const yargs = require('yargs')
 
+// create add command
+yargs.command({
+    command: 'add',
+    describe: 'Add a new Note',
+    builder:{
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'Note body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function(argv){
+        notes.addNotes(argv.title, argv.body)
+    }
+})
 
-const sum = require('./utils.js')
-console.log(sum(1,2))
+// carete remove command
+
+yargs.command(
+    {
+        command: 'remove',
+        describe: 'Remove note',
+        builder:{
+            title: {
+                describe: 'Note Title',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        handler: function (argv) {
+            notes.removeNote(argv.title)
+        }
+    }
+)
+
+yargs.command({
+    command:'read',
+    describe: 'Read the notes',
+    handler: function () {
+        console.log('Reading your notes')
+    }
+})
+
+yargs.command({
+    command: 'list',
+    describe: 'list the notes',
+    handler: function () {
+        console.log('Listing out all notes')
+    }
+})
+
+console.log(yargs.argv)
+
