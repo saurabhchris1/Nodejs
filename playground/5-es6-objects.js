@@ -16,7 +16,7 @@ const user = {
 const product = {
     label: 'Red Notebook',
     price: 2,
-    stock: 201,
+    // stock: 201,
     salePrice: undefined,
     rating: 4.5
 }
@@ -27,7 +27,7 @@ const product = {
 // const {label: productLabel, stock, rating = 5} = product
 // console.log(productLabel, stock, rating)
 
-const transaction = (type, {label, stock}) => {
+const transaction = (type, {label, stock = 0} = {}) => {
     console.log(type, label, stock)
 }
 
